@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="org.maroxa.gce.Alumno"%>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -26,7 +30,16 @@
 				</p>
 				<p>
 					<label id="curso">Curso:</label>
-					<input type="text" id="curso" name="curso">
+					<select name="curso">
+           <option value="seleccionar" selected="selected">Seleccionar</option>
+           <%
+               List<String> listaCursos = Alumno.buscarTodosLosCursos();
+               for(String curso : listaCursos){%>
+                   <option value="<%=curso %>"><%=curso %></option>
+               <%}
+           %>
+       </select>
+       <br/>
 				</p>
 				<p>
 					<input type="submit" value="Alta" id="alta"/>

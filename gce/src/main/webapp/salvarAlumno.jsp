@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="org.maroxa.gce.Alumno"%>
 <%
     String id = request.getParameter("id");
@@ -7,6 +8,6 @@
     String segundoApellido = request.getParameter("segundoApellido");
     String curso = request.getParameter("curso");
     Alumno alumno = new Alumno(id, nombre, primerApellido, segundoApellido, curso);
-    alumno.insertar();
+    alumno.salvarAlumno();
     response.sendRedirect("mostrarAlumnos.jsp");
 %>
