@@ -1,5 +1,5 @@
 /*Creación de la tabla de alumnos*/
-CREATE TABLE ALUMNOS(
+CREATE TABLE ALUMNO(
 ID int auto_increment PRIMARY KEY,
 NOMBRE varchar(15) NOT NULL,
 PRIMERAPELLIDO VARCHAR(30),
