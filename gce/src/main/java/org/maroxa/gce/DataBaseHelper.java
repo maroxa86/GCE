@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.maroxa.gce.exception.DataBaseException;
+
 public class DataBaseHelper<T> {
 
     private static final String DRIVER = "com.mysql.jdbc.Driver";
@@ -17,7 +19,7 @@ public class DataBaseHelper<T> {
     private static final String USUARIO = "root";
     private static final String CLAVE = "root";
 
-    public List<T> seleccionarRegistros(String consultaSQL, Class clase) {
+    public List<T> seleccionarRegistros(String consultaSQL, Class clase){
         Connection conexion = null;
         Statement sentencia = null;
         ResultSet filas = null;
@@ -42,22 +44,29 @@ public class DataBaseHelper<T> {
             }
         } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
+            throw new DataBaseException(e.getMessage(),e);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            throw new DataBaseException(e.getMessage(),e);
         } catch (InstantiationException e) {
             System.out.println(e.getMessage());
+            throw new DataBaseException(e.getMessage(),e);
         } catch (IllegalAccessException e) {
             System.out.println(e.getMessage());
+            throw new DataBaseException(e.getMessage(),e);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+            throw new DataBaseException(e.getMessage(),e);
         } catch (InvocationTargetException e) {
             System.out.println(e.getMessage());
+            throw new DataBaseException(e.getMessage(),e);
         } finally {
             if (sentencia != null) {
                 try {
                     sentencia.close();
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
+                    throw new DataBaseException(e.getMessage(),e);
                 }
             }
         }
@@ -66,12 +75,13 @@ public class DataBaseHelper<T> {
                 conexion.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
+                throw new DataBaseException(e.getMessage(),e);
             }
         }
         return listaDeObjetos;
     }
 
-    public int modificarRegistro(String consultaSQL) {
+    public int modificarRegistro(String consultaSQL){
         Connection conexion = null;
         Statement sentencia = null;
         int filasAfectadas = 0;
@@ -82,19 +92,25 @@ public class DataBaseHelper<T> {
             filasAfectadas = sentencia.executeUpdate(consultaSQL);
         } catch (ClassNotFoundException e) {
             System.out.println("Error driver" + e.getMessage());
+            throw new DataBaseException(e.getMessage(),e);
         } catch (SQLException e) {
             System.out.println("Error de SQL" + e.getMessage());
+            throw new DataBaseException(e.getMessage(),e);
         } finally {
             if (sentencia != null) {
                 try {
                     sentencia.close();
                 } catch (SQLException e) {
+                    System.out.println("Error el Statement");
+                    throw new DataBaseException(e.getMessage(),e);
                 }
             }
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException e) {
+                    System.out.println("Error al cerrar la conexión");
+                    throw new DataBaseException(e.getMessage(),e);
                 }
             }
         }

@@ -68,13 +68,13 @@ public class Alumno {
         this.curso = curso;
     }
 
-    public static List<String> buscarTodosLosCursos() {
+    public static List<String> buscarTodosLosCursos(){
         String consultaSQL = "select distinct(curso) from Alumno";
         DataBaseHelper<String> helper = new DataBaseHelper<>();
         return helper.seleccionarRegistros(consultaSQL, String.class);
     }
 
-    public void insertar() {
+    public void insertar(){
         String consultaSQL = "insert into Alumno (id, nombre, primerApellido, segundoApellido, curso) values ";
         consultaSQL += "('" + this.id + "','" + this.nombre + "','" + this.primerApellido + "', '" + this.segundoApellido 
                 + "', " + this.curso + ")";
@@ -82,7 +82,7 @@ public class Alumno {
         helper.modificarRegistro(consultaSQL);
     }
 
-    public static List<Alumno> buscarTodos() {
+    public static List<Alumno> buscarTodos(){
         String consultaSQL = "select id, nombre, primerapellido, segundoapellido, curso from Alumno";
         DataBaseHelper<Alumno> helper = new DataBaseHelper<>();
         return helper.seleccionarRegistros(consultaSQL, Alumno.class);

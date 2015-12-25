@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="org.maroxa.gce.Alumno"%>
+<%@page import="org.maroxa.gce.exception.DataBaseException"%>
 <%@ page import="java.util.List" %>
 <%Alumno alumno = Alumno.buscarAlumnoPorClave(request.getParameter("id")); %>
 <!DOCTYPE html>
@@ -34,6 +35,7 @@
 					<select name="curso">
                         <option value="seleccionar">Seleccionar</option>
 			           <%
+			           
 			               List<String> listaCursos = Alumno.buscarTodosLosCursos();
 			               for(String curso : listaCursos){
 			                 if(curso.equals(alumno.getCurso())){%>
@@ -42,8 +44,7 @@
 			                 else{%>
 			                   <option value="<%=curso %>"><%=curso %></option>  
 			                 <%}
-			               }
-			           %>
+			               }%>
 			       </select>
 			       <br/>
 				</p>
@@ -51,6 +52,6 @@
 					<input type="submit" value="Guardar" id="guardar"/>
 				</p>
 			</fieldset>
-		</form>
-	</body>
+        </form>
+    </body>
 </html>
