@@ -11,7 +11,7 @@
 		<title>Gestión Centro Escolar</title>
 	</head>
 	<body>
-		<form id="altaAlumno" method="POST" action="salvarAlumno.jsp">
+		<form id="altaAlumno" method="POST" action="salvarAlumno.do">
 			<fieldset>
 				<legend>Alta Nuevo Usuario</legend>
 				<p>

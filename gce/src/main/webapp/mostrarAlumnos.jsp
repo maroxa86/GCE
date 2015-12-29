@@ -9,30 +9,21 @@
 		<title>Gestión Centro Escolar</title>
 	</head>
 	<body>
-	   <form id="filtarCurso" name="filtarCurso" method="get" action="#">
+	   <form id="filtarCurso" name="filtarCurso" method="get" action="filtrarAlumnos.do">
 		   <select name="curso">
 		       <option value="seleccionar" selected="selected">Seleccionar</option>
 		       <%
-		       try{
-		           List<String> listaCursos = Alumno.buscarTodosLosCursos();
+		           List<String> listaCursos = (List<String>) request.getAttribute("listaDeCursos");
 		           for(String curso : listaCursos){%>
 		               <option value="<%=curso %>"><%=curso %></option>
-		           <%}
-		       }catch(DataBaseException e){%>
-			       <%=e.getMessage() %>
-		       <%}%>
+	               <%}%>
 		   </select>
 		   <input type="submit" value="Filtrar" id ="filtar" name="filtrar">
 	   </form>
 	   <br/>
 		<%
 			  List<Alumno> listaAlumnos = null;
-			  if(request.getParameter("curso") == null || request.getParameter("curso").equals("seleccionar")){
-			      listaAlumnos = Alumno.buscarTodos();
-			  }
-			  else{
-			      listaAlumnos = Alumno.buscarPorCurso(request.getParameter("curso"));
-			  }
+			  listaAlumnos = (List<Alumno>) request.getAttribute("listaDeAlumnos");
 			  for(Alumno alumno : listaAlumnos) {
 			%>
 			<%=alumno.getId()%>
@@ -40,8 +31,8 @@
 			<%=alumno.getPrimerApellido()%>
 			<%=alumno.getSegundoApellido()%>
 			<%=alumno.getCurso()%>
-			<a href="editarAlumno.jsp?id=<%=alumno.getId() %>">Editar</a>
-			<a href="borrarAlumno.jsp?id=<%=alumno.getId() %>">Borrar</a>
+			<a href="editarAlumno.do?id=<%=alumno.getId() %>">Editar</a>
+			<a href="borrarAlumno.do?id=<%=alumno.getId() %>">Borrar</a>
 			<br />
 			<%}%>
 		<a href="altaAlumno.jsp">Nuevo Alumno</a>

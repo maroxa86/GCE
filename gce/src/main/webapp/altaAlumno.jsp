@@ -10,7 +10,7 @@
 		<title>Gestión Centro Escolar</title>
 	</head>
 	<body>
-		<form id="altaAlumno" method="POST" action="insertarAlumno.jsp">
+		<form id="altaAlumno" method="POST" action="insertarAlumno.do">
 			<fieldset>
 				<legend>Alta Nuevo Usuario</legend>
 				<p>

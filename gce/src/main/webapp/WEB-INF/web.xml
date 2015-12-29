@@ -11,4 +11,13 @@
     <location>/error.jsp</location>
   </error-page>
   
+  <servlet>
+    <description>Servlet encargado de gestionar las acciones del modulo de alumnos</description>
+    <servlet-name>ControladorAlumnos</servlet-name>
+    <servlet-class>org.maroxa.gce.controlador.ControladorAlumnos</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ControladorAlumnos</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
 </web-app>
