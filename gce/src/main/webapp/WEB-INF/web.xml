@@ -3,7 +3,7 @@
   <display-name>Gestion Centro Escolar</display-name>
   
   <welcome-file-list>
-    <welcome-file>mostrarAlumnos.jsp</welcome-file>
+    <welcome-file>mostrarAlumnos.do</welcome-file>
   </welcome-file-list>
   
   <error-page>
