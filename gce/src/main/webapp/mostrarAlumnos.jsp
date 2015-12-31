@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="org.maroxa.gce.Alumno"%>
 <%@page import="org.maroxa.gce.exception.DataBaseException"%>
 <%@ page import="java.util.List" %>
@@ -12,29 +13,19 @@
 	   <form id="filtarCurso" name="filtarCurso" method="get" action="filtrarAlumnos.do">
 		   <select name="curso">
 		       <option value="seleccionar" selected="selected">Seleccionar</option>
-		       <%
-		           List<String> listaCursos = (List<String>) request.getAttribute("listaDeCursos");
-		           for(String curso : listaCursos){%>
-		               <option value="<%=curso %>"><%=curso %></option>
-	               <%}%>
+		       <c:forEach var="curso" items="${listaDeCursos}">
+		               <option value="${curso}">${curso}</option>
+		       </c:forEach>
 		   </select>
 		   <input type="submit" value="Filtrar" id ="filtar" name="filtrar">
 	   </form>
 	   <br/>
-		<%
-			  List<Alumno> listaAlumnos = null;
-			  listaAlumnos = (List<Alumno>) request.getAttribute("listaDeAlumnos");
-			  for(Alumno alumno : listaAlumnos) {
-			%>
-			<%=alumno.getId()%>
-			<%=alumno.getNombre()%>
-			<%=alumno.getPrimerApellido()%>
-			<%=alumno.getSegundoApellido()%>
-			<%=alumno.getCurso()%>
-			<a href="editarAlumno.do?id=<%=alumno.getId() %>">Editar</a>
-			<a href="borrarAlumno.do?id=<%=alumno.getId() %>">Borrar</a>
-			<br />
-			<%}%>
-		<a href="altaAlumno.jsp">Nuevo Alumno</a>
+	   <c:forEach var="alumno" items="${listaDeAlumnos}">
+	       ${alumno.id} ${alumno.nombre} ${alumno.primerApellido} ${alumno.segundoApellido} ${alumno.curso}
+		  <a href="editarAlumno.do?id=${alumno.id}">Editar</a>
+          <a href="borrarAlumno.do?id=${alumno.id}">Borrar</a>
+		  <br />
+	   </c:forEach>
+	   <a href="altaAlumno.do">Nuevo Alumno</a>
 	</body>
 </html>

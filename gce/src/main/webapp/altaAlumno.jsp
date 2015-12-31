@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="org.maroxa.gce.Alumno"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="org.maroxa.gce.Alumno"%>
 <%@ page import="java.util.List" %>
 <%@ page import="org.maroxa.gce.exception.DataBaseException" %>
 <!DOCTYPE html>
@@ -32,12 +33,10 @@
 				<p>
 					<label id="curso">Curso:</label>
 					<select name="curso">
-		           <option value="seleccionar" selected="selected">Seleccionar</option>
-		           <%
-		               List<String> listaCursos = Alumno.buscarTodosLosCursos();
-		               for(String curso : listaCursos){%>
-		                   <option value="<%=curso %>"><%=curso %></option>
-	               <%  }%>
+		              <option value="seleccionar" selected="selected">Seleccionar</option>
+		              <c:forEach var="curso" items="${listaDeCursos}">
+                        <option value="${curso}">${curso}</option>
+                      </c:forEach>
 			       </select>
 			       <br/>
 				</p>

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="org.maroxa.gce.Alumno"%>
-<%@page import="org.maroxa.gce.exception.DataBaseException"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="org.maroxa.gce.Alumno"%>
+<%@ page import="org.maroxa.gce.exception.DataBaseException"%>
 <%@ page import="java.util.List" %>
 <%Alumno alumno = Alumno.buscarAlumnoPorClave(request.getParameter("id")); %>
 <!DOCTYPE html>
@@ -33,19 +34,18 @@
 				<p>
 					<label id="curso">Curso:</label>
 					<select name="curso">
-                        <option value="seleccionar">Seleccionar</option>
-			           <%
-			           
-			               List<String> listaCursos = Alumno.buscarTodosLosCursos();
-			               for(String curso : listaCursos){
-			                 if(curso.equals(alumno.getCurso())){%>
-			                   <option value="<%=curso %>" selected="selected"><%=curso %></option>
-			               <%}
-			                 else{%>
-			                   <option value="<%=curso %>"><%=curso %></option>  
-			                 <%}
-			               }%>
-			       </select>
+                      <option value="seleccionar" selected="selected">Seleccionar</option>
+                      <c:forEach var="curso" items="${listaDeCursos}">
+                        <c:choose>
+                            <c:when test="${curso} == <%=alumno.getCurso()%>">
+		                        <option value="${curso}" selected="selected">${curso}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${curso}">${curso}</option>
+                            </c:otherwise>
+                        </c:choose>
+                      </c:forEach>
+                    </select>
 			       <br/>
 				</p>
 				<p>
