@@ -1,12 +1,23 @@
-package org.maroxa.gce;
+package org.maroxa.gce.bo;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.maroxa.gce.Constantes;
+import org.maroxa.gce.HibernateHelper;
+@Entity
+@Table(name="Alumno")
 public class Alumno {
-    private static final Logger LOGGER = Logger.getLogger(DataBaseHelper.class);
+    private static final Logger LOGGER = Logger.getLogger(Alumno.class);
     
+    @Id
     private String id; 
     private String nombre;
     private String primerApellido;
@@ -73,70 +84,81 @@ public class Alumno {
 
     public static List<String> buscarTodosLosCursos(){
         LOGGER.info(Constantes.INICIO_LOG + " buscarTodosLosCursos");
-        String consultaSQL = "select distinct(curso) from Alumno";
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        String consultaSQL = "select distinct(alumno.curso) from Alumno alumno";
         LOGGER.debug(Constantes.CONSULTA_SQL + consultaSQL);
-        DataBaseHelper<String> helper = new DataBaseHelper<>();
+        List<String> listaDeCursos = (List<String>)session.createQuery(consultaSQL).list();
+        session.close();
         LOGGER.info(Constantes.FIN_LOG + " buscarTodosLosCursos");
-        return helper.seleccionarRegistros(consultaSQL, String.class);
+        return listaDeCursos;
     }
 
     public void insertar(){
         LOGGER.info(Constantes.INICIO_LOG + " insertar");
-        String consultaSQL = "insert into Alumno (id, nombre, primerApellido, segundoApellido, curso) values ";
-        consultaSQL += "('" + this.id + "','" + this.nombre + "','" + this.primerApellido + "', '" + this.segundoApellido 
-                + "', " + this.curso + ")";
-        LOGGER.debug(Constantes.CONSULTA_SQL + consultaSQL);
-        DataBaseHelper<Alumno> helper = new DataBaseHelper<>();
-        helper.modificarRegistro(consultaSQL);
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        session.beginTransaction();
+        session.save(this);
+        session.getTransaction().commit();
+        session.close();
         LOGGER.info(Constantes.FIN_LOG + " insertar");
     }
 
     public static List<Alumno> buscarTodos(){
         LOGGER.info(Constantes.INICIO_LOG + " buscarTodos");
-        String consultaSQL = "select id, nombre, primerapellido, segundoapellido, curso from Alumno";
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        String consultaSQL = " from Alumno alumno";
         LOGGER.debug(Constantes.CONSULTA_SQL + consultaSQL);
-        DataBaseHelper<Alumno> helper = new DataBaseHelper<>();
+        List<Alumno> listaDeAlumnos = (List<Alumno>)session.createQuery(consultaSQL).list();
+        session.close();
         LOGGER.info(Constantes.FIN_LOG + " buscarTodos");
-        return helper.seleccionarRegistros(consultaSQL, Alumno.class);
+        return listaDeAlumnos;
     }
     
     public void borrar(){
         LOGGER.info(Constantes.INICIO_LOG + " borrar");
-        String consultaSQL = "delete from Alumno where id = " + this.id;
-        LOGGER.debug(Constantes.CONSULTA_SQL + consultaSQL);
-        DataBaseHelper<Alumno> helper = new DataBaseHelper<>();
-        helper.modificarRegistro(consultaSQL);
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        session.beginTransaction();
+        session.delete(this);
+        session.getTransaction().commit();
+        session.close();
         LOGGER.info(Constantes.FIN_LOG + " borrar");
     }
     
     public static Alumno buscarAlumnoPorClave(String id){
         LOGGER.info(Constantes.INICIO_LOG + " buscarAlumnoPorClave");
-        String consultaSQL = "select id, nombre, primerApellido, segundoApellido, curso from Alumno where id = " + id;
-        LOGGER.debug(Constantes.CONSULTA_SQL + consultaSQL);
-        DataBaseHelper<Alumno> db = new DataBaseHelper<>();
-        List<Alumno> listaAlumnos = db.seleccionarRegistros(consultaSQL, Alumno.class);
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        Alumno alumno = (Alumno) session.get(Alumno.class, id);
+        session.close();
         LOGGER.info(Constantes.FIN_LOG + " buscarAlumnoPorClave");
-        return listaAlumnos.get(0);
+        return alumno;
     }
     
     public void salvarAlumno(){
         LOGGER.info(Constantes.INICIO_LOG + " salvarAlumno");
-        String consultaSQL = "update Alumno set id = " + this.id + ", nombre = '" + this.nombre + "', "
-                + "primerApellido = '" + this.primerApellido + "', segundoApellido = '" + this.segundoApellido + "', "
-                + "curso = " + this.curso + " where id = " + this.id;
-        LOGGER.debug(Constantes.CONSULTA_SQL + consultaSQL);
-        DataBaseHelper<Alumno> db = new DataBaseHelper<>();
-        db.modificarRegistro(consultaSQL);
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(this);
+        session.getTransaction().commit();
+        session.close();
         LOGGER.info(Constantes.FIN_LOG + " salvarAlumno");
     }
     
     public static List<Alumno> buscarPorCurso(String curso){
         LOGGER.info(Constantes.INICIO_LOG + " buscarPorCurso");
-        String consultaSQL = "select id, nombre, primerApellido, segundoApellido, curso from Alumno "
-                + "where curso = " + curso;
+        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
+        Session session = factoriaSession.openSession();
+        Query consultaSQL = session.createQuery("from Alumno alumno where alumno.curso =:curso");
+        consultaSQL.setString("curso", curso);
         LOGGER.debug(Constantes.CONSULTA_SQL + consultaSQL);
-        DataBaseHelper<Alumno> db = new DataBaseHelper<>();
+        List<Alumno> listaDeAlumnos = (List<Alumno>) consultaSQL.list();
+        session.close();
         LOGGER.info(Constantes.FIN_LOG + " buscarPorCurso");
-        return db.seleccionarRegistros(consultaSQL, Alumno.class);
+        return listaDeAlumnos;
     }
 }

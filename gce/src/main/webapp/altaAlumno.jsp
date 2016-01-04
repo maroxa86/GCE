@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="org.maroxa.gce.Alumno"%>
-<%@ page import="java.util.List" %>
-<%@ page import="org.maroxa.gce.exception.DataBaseException" %>
+<%@ page import="org.maroxa.gce.bo.Alumno"%>
 <!DOCTYPE html>
 <html>
 	<head>

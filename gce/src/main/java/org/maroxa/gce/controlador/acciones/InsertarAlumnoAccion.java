@@ -3,7 +3,7 @@ package org.maroxa.gce.controlador.acciones;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.maroxa.gce.Alumno;
+import org.maroxa.gce.bo.Alumno;
 
 public class InsertarAlumnoAccion extends Accion {
 

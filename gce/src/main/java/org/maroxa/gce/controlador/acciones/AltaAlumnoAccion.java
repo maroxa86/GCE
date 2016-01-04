@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.maroxa.gce.Alumno;
+import org.maroxa.gce.bo.Alumno;
 
 public class AltaAlumnoAccion extends Accion {
 

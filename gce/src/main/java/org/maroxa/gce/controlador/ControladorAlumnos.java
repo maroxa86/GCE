@@ -26,6 +26,7 @@ public class ControladorAlumnos extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    processRequest(request, response);
 	}
@@ -33,15 +34,15 @@ public class ControladorAlumnos extends HttpServlet {
     /**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    processRequest(request, response);
 	}
 
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-	    RequestDispatcher despachador = null;
 	    String url = request.getServletPath();
 	    Accion accion = Accion.getAccion(url.substring(1, url.length() - 3));
-    	despachador = request.getRequestDispatcher(accion.ejecutar(request, response));
+	    RequestDispatcher despachador = request.getRequestDispatcher(accion.ejecutar(request, response));
     	despachador.forward(request, response);
     }
 }
