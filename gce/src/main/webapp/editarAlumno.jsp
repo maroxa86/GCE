@@ -35,11 +35,11 @@
                       <option value="seleccionar" selected="selected">Seleccionar</option>
                       <c:forEach var="curso" items="${listaDeCursos}">
                         <c:choose>
-                            <c:when test="${curso} == <%=alumno.getCurso()%>">
-		                        <option value="${curso}" selected="selected">${curso}</option>
+                            <c:when test="${curso.id} == <%=alumno.getCurso()%>">
+		                        <option value="${curso.id}" selected="selected">${curso.nombre}</option>
                             </c:when>
                             <c:otherwise>
-                                <option value="${curso}">${curso}</option>
+                                <option value="${curso.id}">${curso.nombre}</option>
                             </c:otherwise>
                         </c:choose>
                       </c:forEach>

@@ -5,13 +5,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.maroxa.gce.bo.Alumno;
+import org.maroxa.gce.bo.Curso;
 
 public class AltaAlumnoAccion extends Accion {
 
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-        List<String> listaDeCursos = Alumno.buscarTodosLosCursos();
+        List<Curso> listaDeCursos = Curso.buscarTodosLosCursos();
         request.setAttribute("listaDeCursos", listaDeCursos);
         return "altaAlumno.jsp";
     }

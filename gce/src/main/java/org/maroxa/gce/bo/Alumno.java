@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.log4j.Logger;
@@ -12,6 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.maroxa.gce.Constantes;
 import org.maroxa.gce.HibernateHelper;
+
 @Entity
 @Table(name="Alumno")
 public class Alumno {
@@ -22,7 +25,10 @@ public class Alumno {
     private String nombre;
     private String primerApellido;
     private String segundoApellido; 
-    private String curso;
+    
+    @ManyToOne
+    @JoinColumn(name="curso")
+    private Curso curso;
 
     public Alumno() {
         super();
@@ -33,7 +39,7 @@ public class Alumno {
         this.id = id;
     }
     
-    public Alumno(String id, String nombre, String primerApellido, String segundoApellido, String curso) {
+    public Alumno(String id, String nombre, String primerApellido, String segundoApellido, Curso curso) {
         super();
         this.id = id;
         this.nombre = nombre;
@@ -74,24 +80,12 @@ public class Alumno {
         this.segundoApellido = segundoApellido;
     }
 
-    public String getCurso() {
+    public Curso getCurso() {
         return curso;
     }
 
-    public void setCurso(String curso) {
+    public void setCurso(Curso curso) {
         this.curso = curso;
-    }
-
-    public static List<String> buscarTodosLosCursos(){
-        LOGGER.info(Constantes.INICIO_LOG + " buscarTodosLosCursos");
-        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
-        Session session = factoriaSession.openSession();
-        String consultaSQL = "select distinct(alumno.curso) from Alumno alumno";
-        LOGGER.debug(Constantes.CONSULTA_SQL + consultaSQL);
-        List<String> listaDeCursos = (List<String>)session.createQuery(consultaSQL).list();
-        session.close();
-        LOGGER.info(Constantes.FIN_LOG + " buscarTodosLosCursos");
-        return listaDeCursos;
     }
 
     public void insertar(){
@@ -109,7 +103,7 @@ public class Alumno {
         LOGGER.info(Constantes.INICIO_LOG + " buscarTodos");
         SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
         Session session = factoriaSession.openSession();
-        String consultaSQL = " from Alumno alumno";
+        String consultaSQL = " from Alumno alumno left join fetch alumno.curso";
         LOGGER.debug(Constantes.CONSULTA_SQL + consultaSQL);
         List<Alumno> listaDeAlumnos = (List<Alumno>)session.createQuery(consultaSQL).list();
         session.close();

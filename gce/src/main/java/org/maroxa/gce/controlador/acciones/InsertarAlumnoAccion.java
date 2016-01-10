@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.maroxa.gce.bo.Alumno;
+import org.maroxa.gce.bo.Curso;
 
 public class InsertarAlumnoAccion extends Accion {
 
@@ -14,7 +15,7 @@ public class InsertarAlumnoAccion extends Accion {
         String primerApellido = request.getParameter("primerApellido");
         String segundoApellido = request.getParameter("segundoApellido");
         String curso = request.getParameter("curso");
-        Alumno alumno = new Alumno(id, nombre, primerApellido, segundoApellido, curso);
+        Alumno alumno = new Alumno(id, nombre, primerApellido, segundoApellido, new Curso(Integer.parseInt(curso)));
         alumno.insertar();
         return "mostrarAlumnos.do";
     }

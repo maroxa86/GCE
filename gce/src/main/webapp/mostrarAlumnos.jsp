@@ -11,14 +11,14 @@
 		   <select name="curso">
 		       <option value="seleccionar" selected="selected">Seleccionar</option>
 		       <c:forEach var="curso" items="${listaDeCursos}">
-		               <option value="${curso}">${curso}</option>
+		               <option value="${curso.id}">${curso.nombre}</option>
 		       </c:forEach>
 		   </select>
 		   <input type="submit" value="Filtrar" id ="filtar" name="filtrar">
 	   </form>
 	   <br/>
 	   <c:forEach var="alumno" items="${listaDeAlumnos}">
-	       ${alumno.id} ${alumno.nombre} ${alumno.primerApellido} ${alumno.segundoApellido} ${alumno.curso}
+	       ${alumno.id} ${alumno.nombre} ${alumno.primerApellido} ${alumno.segundoApellido} ${alumno.curso.nombre}
 		  <a href="editarAlumno.do?id=${alumno.id}">Editar</a>
           <a href="borrarAlumno.do?id=${alumno.id}">Borrar</a>
 		  <br />
