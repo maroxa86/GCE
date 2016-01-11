@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.maroxa.gce.exception.DataBaseException;
+import org.maroxa.gce.exception.GceException;
 
 public abstract class Accion {
     private static final Logger LOGGER = Logger.getLogger(Accion.class);
@@ -21,15 +21,15 @@ public abstract class Accion {
         } catch (InstantiationException e) {
             LOGGER.error("Error Instanciación.");
             LOGGER.error(e.getMessage());
-            throw new DataBaseException(e.getMessage(),e);
+            throw new GceException(e.getMessage(),e);
         } catch (IllegalAccessException e) {
             LOGGER.error("Error de acceso ilegal.");
             LOGGER.error(e.getMessage());
-            throw new DataBaseException(e.getMessage(),e);
+            throw new GceException(e.getMessage(),e);
         } catch (ClassNotFoundException e) {
             LOGGER.error("No se encuentra la clase.");
             LOGGER.error(e.getMessage());
-            throw new DataBaseException(e.getMessage(),e);
+            throw new GceException(e.getMessage(),e);
         }
         
         return accion;

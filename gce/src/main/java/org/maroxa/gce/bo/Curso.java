@@ -3,16 +3,17 @@ package org.maroxa.gce.bo;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.maroxa.gce.Constantes;
-import org.maroxa.gce.HibernateHelper;
+import org.maroxa.gce.JPAHelper;
 
 @Entity
 @Table(name="Curso")
@@ -29,7 +30,6 @@ public class Curso {
     
     public Curso() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     public Curso(int id){
@@ -70,12 +70,15 @@ public class Curso {
 
     public static List<Curso> buscarTodosLosCursos(){
         LOGGER.info(Constantes.INICIO_LOG + " buscarTodosLosCursos");
-        SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
-        Session session = factoriaSession.openSession();
-        String consultaSQL = "from Curso curso";
-        LOGGER.debug(Constantes.CONSULTA_SQL + consultaSQL);
-        List<Curso> listaDeCursos = (List<Curso>)session.createQuery(consultaSQL).list();
-        session.close();
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager manager = factoriaSession.createEntityManager();
+        TypedQuery<Curso> consulta = manager.createQuery("SELECT curso FROM Curso curso", Curso.class);
+        List<Curso> listaDeCursos = null;
+        try{
+            listaDeCursos = consulta.getResultList();
+        }finally{
+            manager.close();
+        }
         LOGGER.info(Constantes.FIN_LOG + " buscarTodosLosCursos");
         return listaDeCursos;
     }

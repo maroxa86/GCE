@@ -20,7 +20,8 @@ public class FiltrarAlumnosAccion extends Accion {
             listaDeAlumnos = Alumno.buscarTodos();
             request.setAttribute("listaDeAlumnos", listaDeAlumnos);
         } else {
-            listaDeAlumnos = Alumno.buscarPorCurso(request.getParameter("curso"));
+            Curso curso = new Curso(Integer.parseInt(request.getParameter("curso")));
+            listaDeAlumnos = Alumno.buscarPorCurso(curso);
             request.setAttribute("listaDeAlumnos", listaDeAlumnos);
         }
         
