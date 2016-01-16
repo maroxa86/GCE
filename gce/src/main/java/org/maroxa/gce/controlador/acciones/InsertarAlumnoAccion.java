@@ -6,13 +6,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.maroxa.gce.bo.Alumno;
 import org.maroxa.gce.bo.Curso;
 import org.maroxa.gce.dao.AlumnoDAO;
-import org.maroxa.gce.dao.impl.AlumnoDAOImpl;
+import org.maroxa.gce.factory.DAOAbstractFactory;
+import org.maroxa.gce.factory.DAOFactory;
 
 public class InsertarAlumnoAccion extends Accion {
 
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-        AlumnoDAO alumnoDAO = new AlumnoDAOImpl();
+        DAOFactory factory = DAOAbstractFactory.getInstance();
+        AlumnoDAO alumnoDAO = factory.getAlumnoDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         String nombre = request.getParameter("nombre");
         String primerApellido = request.getParameter("primerApellido");
@@ -22,5 +24,4 @@ public class InsertarAlumnoAccion extends Accion {
         alumnoDAO.insertar(alumno);
         return "mostrarAlumnos.do";
     }
-
 }

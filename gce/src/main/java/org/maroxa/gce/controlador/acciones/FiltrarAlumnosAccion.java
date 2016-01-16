@@ -10,15 +10,16 @@ import org.maroxa.gce.bo.Alumno;
 import org.maroxa.gce.bo.Curso;
 import org.maroxa.gce.dao.AlumnoDAO;
 import org.maroxa.gce.dao.CursoDAO;
-import org.maroxa.gce.dao.impl.AlumnoDAOImpl;
-import org.maroxa.gce.dao.impl.CursoDAOImpl;
+import org.maroxa.gce.factory.DAOAbstractFactory;
+import org.maroxa.gce.factory.DAOFactory;
 
 public class FiltrarAlumnosAccion extends Accion {
 
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-        AlumnoDAO alumnoDAO = new AlumnoDAOImpl();
-        CursoDAO cursoDAO = new CursoDAOImpl();
+        DAOFactory factory = DAOAbstractFactory.getInstance();
+        CursoDAO cursoDAO = factory.getCursoDAO();
+        AlumnoDAO alumnoDAO = factory.getAlumnoDAO();
         List<Alumno> listaDeAlumnos = new ArrayList<>();
         List<Curso> listaDeCursos = cursoDAO.buscarTodos();
         if (request.getParameter("curso") == null 
@@ -34,5 +35,4 @@ public class FiltrarAlumnosAccion extends Accion {
         request.setAttribute("listaDeCursos", listaDeCursos);
         return "mostrarAlumnos.jsp";
     }
-
 }

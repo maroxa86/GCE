@@ -8,20 +8,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.maroxa.gce.bo.Alumno;
 import org.maroxa.gce.bo.Curso;
 import org.maroxa.gce.dao.AlumnoDAO;
-import org.maroxa.gce.dao.impl.AlumnoDAOImpl;
-import org.maroxa.gce.dao.impl.CursoDAOImpl;
+import org.maroxa.gce.dao.CursoDAO;
+import org.maroxa.gce.factory.DAOAbstractFactory;
+import org.maroxa.gce.factory.DAOFactory;
 
 public class MostrarAlumnosAccion extends Accion {
 
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-        AlumnoDAO alumnoDAO = new AlumnoDAOImpl();
-        CursoDAOImpl cursoDAO = new CursoDAOImpl();
+        DAOFactory factory = DAOAbstractFactory.getInstance();
+        CursoDAO cursoDAO = factory.getCursoDAO();
+        AlumnoDAO alumnoDAO = factory.getAlumnoDAO();
         List<Alumno> listaDeAlumnos = alumnoDAO.buscarTodos();
         List<Curso> listaDeCursos = cursoDAO.buscarTodos();
         request.setAttribute("listaDeAlumnos", listaDeAlumnos);
         request.setAttribute("listaDeCursos", listaDeCursos);
         return "mostrarAlumnos.jsp";
     }
-
 }
