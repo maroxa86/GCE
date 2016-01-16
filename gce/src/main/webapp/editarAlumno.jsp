@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="org.maroxa.gce.bo.Alumno"%>
-<%Alumno alumno = Alumno.buscarAlumnoPorClave(request.getParameter("id")); %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -15,19 +14,19 @@
 				<legend>Alta Nuevo Usuario</legend>
 				<p>
 					<label id="id">Identificador:</label>
-					<input type="text" id="id" name="id" value="<%=alumno.getId()%>"/>
+					<input type="text" id="id" name="id" value="${alumno.id}"/>
 				</p>
 				<p>
 					<label id="nombre">Nombre:</label>
-					<input type="text" id="nombre" name="nombre" value="<%=alumno.getNombre()%>"/>
+					<input type="text" id="nombre" name="nombre" value="${alumno.nombre}"/>
 				</p>
 				<p>
 					<label id="primerApellido">Primer Apellido:</label>
-					<input type="text" id="primerApellido" name="primerApellido" value="<%=alumno.getPrimerApellido()%>"/>
+					<input type="text" id="primerApellido" name="primerApellido" value="${alumno.primerApellido}"/>
 				</p>
 				<p>
 					<label id="segundoApellido">Segundo Apellido:</label>
-					<input type="text" id="segundoApellido" name="segundoApellido" value="<%=alumno.getSegundoApellido()%>"/>
+					<input type="text" id="segundoApellido" name="segundoApellido" value="${alumno.segundoApellido}"/>
 				</p>
 				<p>
 					<label id="curso">Curso:</label>
@@ -35,7 +34,7 @@
                       <option value="seleccionar" selected="selected">Seleccionar</option>
                       <c:forEach var="curso" items="${listaDeCursos}">
                         <c:choose>
-                            <c:when test="${curso.id} == <%=alumno.getCurso()%>">
+                            <c:when test="${curso.id} == ${alumno.curso.id}">
 		                        <option value="${curso.id}" selected="selected">${curso.nombre}</option>
                             </c:when>
                             <c:otherwise>

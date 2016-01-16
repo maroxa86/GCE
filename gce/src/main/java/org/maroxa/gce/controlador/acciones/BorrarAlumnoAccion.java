@@ -4,14 +4,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.maroxa.gce.bo.Alumno;
+import org.maroxa.gce.dao.AlumnoDAO;
+import org.maroxa.gce.dao.impl.AlumnoDAOImpl;
 
 public class BorrarAlumnoAccion extends Accion {
 
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter("id");
+        AlumnoDAO alumnoDAO= new AlumnoDAOImpl();
+        int id = Integer.parseInt(request.getParameter("id"));
         Alumno alumno = new Alumno(id);
-        alumno.borrar();
+        alumnoDAO.borrar(alumno);
         return "mostrarAlumnos.do";
     }
 }

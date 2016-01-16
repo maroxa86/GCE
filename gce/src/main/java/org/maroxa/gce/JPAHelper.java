@@ -20,11 +20,11 @@ public class JPAHelper {
             return Persistence.createEntityManagerFactory("gce");
         } catch (PersistenceException ex) {
             LOGGER.error(Constantes.ERROR_JPA);
-            throw new GceException(ex);
+            throw new GceException(ex.getMessage(),ex);
         }
         catch(Exception e){
             LOGGER.error(Constantes.ERROR_JPA);
-            throw new GceException(e);
+            throw new GceException(e.getMessage(),e);
         }
     }
 
