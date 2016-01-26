@@ -6,9 +6,8 @@ import org.maroxa.gce.bo.Alumno;
 import org.maroxa.gce.bo.Curso;
 import org.maroxa.gce.dao.AlumnoDAO;
 import org.maroxa.gce.dao.CursoDAO;
-import org.maroxa.gce.factory.DAOAbstractFactory;
-import org.maroxa.gce.factory.DAOFactory;
 import org.maroxa.gce.servicios.ServicioAlumno;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ServicioAlumnoImpl implements ServicioAlumno{
 
@@ -17,9 +16,9 @@ public class ServicioAlumnoImpl implements ServicioAlumno{
     
     public ServicioAlumnoImpl(){
         super();
-        DAOFactory factory = DAOAbstractFactory.getInstance();
-        alumnoDAO = factory.getAlumnoDAO();
-        cursoDAO = factory.getCursoDAO();
+        ClassPathXmlApplicationContext factory = new ClassPathXmlApplicationContext("contextoAplicacion.xml");
+        alumnoDAO = (AlumnoDAO) factory.getBean("alumnoDAO");
+        cursoDAO = (CursoDAO) factory.getBean("cursoDAO");
     }
     
     @Override

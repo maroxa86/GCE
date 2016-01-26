@@ -11,6 +11,15 @@
     <location>/error.jsp</location>
   </error-page>
   
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:contextoAplicacion.xml</param-value>
+  </context-param>
+  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
   <servlet>
     <description>Servlet encargado de gestionar las acciones del modulo de alumnos</description>
     <servlet-name>ControladorAlumnos</servlet-name>
