@@ -7,6 +7,10 @@ import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.maroxa.gce.exception.GceException;
+import org.maroxa.gce.servicios.ServicioAlumno;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 public abstract class Accion {
     private static final Logger LOGGER = Logger.getLogger(Accion.class);
@@ -33,5 +37,10 @@ public abstract class Accion {
         }
         
         return accion;
+    }
+    
+    public Object getBean(String nombre, HttpServletRequest request){
+        WebApplicationContext factoria = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getSession().getServletContext());
+        return factoria.getBean(nombre);
     }
 }

@@ -5,13 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.maroxa.gce.bo.Alumno;
 import org.maroxa.gce.servicios.ServicioAlumno;
-import org.maroxa.gce.servicios.impl.ServicioAlumnoImpl;
 
 public class BorrarAlumnoAccion extends Accion {
 
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-        ServicioAlumno servicioAlumno = new ServicioAlumnoImpl();
+        ServicioAlumno servicioAlumno = (ServicioAlumno)getBean("servicioAlumno", request);
         int id = Integer.parseInt(request.getParameter("id"));
         Alumno alumno = new Alumno(id);
         servicioAlumno.borrarAlumno(alumno);

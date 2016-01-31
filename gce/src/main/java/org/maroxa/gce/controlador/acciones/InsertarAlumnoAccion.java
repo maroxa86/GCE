@@ -12,7 +12,7 @@ public class InsertarAlumnoAccion extends Accion {
 
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-        ServicioAlumno servicioAlumno = new ServicioAlumnoImpl();
+        ServicioAlumno servicioAlumno = (ServicioAlumno)getBean("servicioAlumno", request);
         int id = Integer.parseInt(request.getParameter("id"));
         String nombre = request.getParameter("nombre");
         String primerApellido = request.getParameter("primerApellido");

@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
-
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+	
+	<!-- Crea los proxies transaccionales asociados a cada uno de las clases, 
+		en este caso las clases DAO, que tengan los métodos marcados como transaccionales 
+		con la etiqueta @Transaccional -->
+	<tx:annotation-driven />
+	
+    <context:annotation-config/>
     
-	<bean id="alumnoDAO" name="alumnoDAO"
-		class="org.maroxa.gce.dao.impl.AlumnoDAOImpl">
+    <!-- Busca todas las anotaciones @Repository y @Service para registrarlos como beans-->
+    <context:component-scan base-package="org.maroxa.gce.*"/>
+    
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	<bean id="cursoDAO" name="cursoDAO"
-		class="org.maroxa.gce.dao.impl.CursoDAOImpl">
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost/gce" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
 	</bean>
+	
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="gce" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
+				<property name="showSql" value="true" />
+			</bean>
+		</property>
+	</bean>
+
 </beans>

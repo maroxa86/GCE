@@ -12,12 +12,16 @@ import org.maroxa.gce.JPAHelper;
 import org.maroxa.gce.bo.Alumno;
 import org.maroxa.gce.bo.Curso;
 import org.maroxa.gce.dao.AlumnoDAO;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Repository
 public class AlumnoDAOImpl extends GenericDAOImpl<Alumno, Integer> implements AlumnoDAO{
     
     private static final Logger LOGGER = Logger.getLogger(AlumnoDAOImpl.class);
     
     @Override
+    @Transactional(readOnly=true)
     public List<Alumno> buscarTodos(){
         LOGGER.info(Constantes.INICIO_LOG + " buscarPorCurso");
         EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
@@ -34,6 +38,7 @@ public class AlumnoDAOImpl extends GenericDAOImpl<Alumno, Integer> implements Al
         return listaDeAlumnos;
     }
     
+    @Transactional(readOnly=true)
     public List<Alumno> buscarPorCurso(Curso curso){
         LOGGER.info(Constantes.INICIO_LOG + " buscarPorCurso");
         EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
