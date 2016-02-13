@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"> 
+	<f:view contentType ="text/html" />
+	<h:head>
+		<title>Gestión Centro Escolar</title>
+	</h:head> 
+	<h:body>
+		<h:form>
+			<p>
+				<label for="id">Identificador:</label> 
+				<h:inputText id="id" value="#{alumnoManagedBean.id}" />
+			</p>
+			<p>
+				<label for="nombre">Nombre:</label> 
+				<h:inputText id="nombre" value="#{alumnoManagedBean.nombre}" />
+			</p>
+			<p>
+	            <label for="primerApellido">Primer Apellido:</label> 
+	            <h:inputText id="primerApellido" value="#{alumnoManagedBean.primerApellido}" />
+	        </p>
+	        <p>
+	            <label for="segundoApellido">Segundo Apellido:</label> 
+	            <h:inputText id="segundoApellido" value="#{alumnoManagedBean.segundoApellido}" />
+	        </p>
+			<p>
+				<label for="cursos">Cursos:</label> 
+				<h:selectOneMenu id="cursos" value="#{alumnoManagedBean.curso}">
+					<f:selectItems value ="#{alumnoManagedBean.listaDeCursos}" />
+				</h:selectOneMenu>
+			</p>
+			<h:commandButton id="submit" actionListener="#{alumnoManagedBean.insertar}" action="mostrarAlumnos" value="Salvar" />
+		</h:form>
+	</h:body>
+</html>

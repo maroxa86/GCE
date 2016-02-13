@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:h="http://java.sun.com/jsf/html">
+	<f:view contentType="text/html">
+	    <h:body>
+	        <h:form>
+	            <h:selectOneMenu id="combo" value="#{alumnoManagedBean.curso}" onchange="submit()" valueChangeListener="#{alumnoManagedBean.filtrar}">
+	                <f:selectItem itemValue="0" itemLabel="Todos"/>
+	                <f:selectItems value="#{alumnoManagedBean.listaDeCursos}"/>
+	            </h:selectOneMenu>
+	            <h:dataTable id="tabla" value="#{alumnoManagedBean.listaDeAlumnos}" var="alumno">
+	                <h:column>
+	                    #{alumno.id}
+	                </h:column>
+	                <h:column>
+	                    #{alumno.nombre}
+	                </h:column>
+	                <h:column>
+	                    #{alumno.primerApellido}
+	                </h:column>
+	                <h:column>
+	                    #{alumno.segundoApellido}
+	                </h:column>
+	                <h:column>
+	                    #{alumno.curso.nombre}
+	                </h:column>
+	                <h:column>
+	                    <h:commandLink value="borrar" actionListener="#{alumnoManagedBean.borrar(alumno.id)}"/>
+	                </h:column>
+	                <h:column>
+	                    <h:commandLink value="editar" actionListener="#{alumnoManagedBean.editar(alumno.id)}" action="editarAlumno"/>
+	                </h:column>
+	            </h:dataTable>
+	            <h:commandButton actionListener="#{alumnoManagedBean.altaAlumno}" action="altaAlumno" value="insertar" />
+	        </h:form>
+	    </h:body>
+	</f:view>
+</html>

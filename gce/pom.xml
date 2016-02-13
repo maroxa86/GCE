@@ -118,5 +118,15 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>1.9.2.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.2.12</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.2.12</version>
+		</dependency>
 	</dependencies>
 </project>
