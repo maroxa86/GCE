@@ -101,22 +101,22 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>4.2.4.RELEASE</version>
+			<version>6.1.14</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
 			<artifactId>spring-webflow</artifactId>
-			<version>2.4.2.RELEASE</version>
+			<version>3.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<version>4.2.4.RELEASE</version>
+			<version>6.1.14</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>1.9.2.RELEASE</version>
+			<version>3.2.11</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.faces</groupId>
